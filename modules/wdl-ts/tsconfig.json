@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "ES2018",
+        "lib": ["esnext", "dom"],
+        "declaration": true,
+        "moduleResolution": "node",
+        "types": [
+            "@lucasritter/wdl-types",
+            "typescript-to-lua/language-extensions"
+        ],
+        "outDir": "dist"
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["dist/**/*.d.ts", "dist/**/*.lua"],
+    "tstl": {
+        "buildMode": "library"
+    }
+}

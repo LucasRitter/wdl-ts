@@ -1,0 +1,13 @@
+{
+    "name": "wdl-ts-example",
+    "version": "0.0.1",
+    "description": "Example script for Watch Dogs Legion",
+    "private": true,
+    "dependencies": {
+        "@lucasritter/wdl-ts": "workspace:modules/wdl-ts"
+    },
+    "scripts": {
+        "build": "tstl",
+        "watch": "tstl --watch"
+    }
+}

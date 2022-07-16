@@ -1,0 +1,21 @@
+{
+    "name": "@lucasritter/wdl-ts",
+    "version": "0.0.1-pre1",
+    "author": "Lucas Ritter <me@lucasritter.design>",
+    "description": "Typings for the WDL Script Hook",
+    "main": "./dist/index",
+    "types": "./dist/index",
+    "scripts": {
+        "clean": "rimraf ./dist",
+        "build": "tstl"
+    },
+    "dependencies": {
+        "@lucasritter/wdl-types": "workspace:modules/wdl-types",
+        "typescript": "^4.7.4",
+        "typescript-to-lua": "^1.6.3"
+    },
+    "files": [
+        "./dist/**/*.lua",
+        "./dist/**/*.d.ts"
+    ]
+}

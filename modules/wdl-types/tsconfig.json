@@ -1,0 +1,6 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "types": ["typescript-to-lua", "typescript-to-lua/language-extensions"]
+    }
+}

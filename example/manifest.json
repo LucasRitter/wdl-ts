@@ -1,0 +1,7 @@
+{
+    "author": "Lucas Ritter",
+    "enableAutoRefresh": true,
+    "entrypoint": "build/main.lua",
+    "name": "WDL-TS Example",
+    "version": "0.1"
+}

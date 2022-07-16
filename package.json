@@ -1,0 +1,18 @@
+{
+  "name": "wdl-ts",
+  "packageManager": "yarn@3.2.1",
+  "private": true,
+  "workspaces": [
+    "example",
+    "modules/*"
+  ],
+  "devDependencies": {
+    "prettier": "^2.7.1",
+    "typescript": "^4.7.4"
+  },
+  "scripts": {
+    "build": "yarn build:lib && yarn build:example",
+    "build:lib": "yarn workspace @lucasritter/wdl-ts build",
+    "build:example": "yarn workspace wdl-ts-example build"
+  }
+}

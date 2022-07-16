@@ -1,0 +1,13 @@
+{
+    "name": "@lucasritter/wdl-types",
+    "version": "0.0.1-pre1",
+    "author": "Lucas Ritter <me@lucasritter.design>",
+    "description": "Typings for the WDL Script Hook",
+    "types": "./types/index",
+    "files": [
+        "./types/**/*.d.ts"
+    ],
+    "devDependencies": {
+        "typescript-to-lua": "^1.6.3"
+    }
+}
