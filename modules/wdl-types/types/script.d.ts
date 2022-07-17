@@ -42,6 +42,14 @@ interface ScriptContext {
      */
     OnUpdate: (time: number, delta: number) => void;
 
+    /**
+     * Called when a key is pressed or released
+     * @param key The key that was pressed or released.
+     * @param name The name of the key.
+     * @param isDown Whether the key is down or up.
+     */
+    OnInputKey: (key: number, name: string, isDown: boolean) => void;
+
     // Todo
     InitCallbacks: () => void;
 }

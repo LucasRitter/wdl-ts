@@ -10,6 +10,7 @@ type RenderFunction = () => void;
 type RenderImGuiFunction = () => imgui.InputType;
 type WorldReadyFunction = () => void;
 type UpdateFunction = (time: number, delta: number) => void;
+type InputKeyFunction = (key: number, name: string, isDown: boolean) => void;
 
 const _loadFunctions: Set<LoadFunction> = new Set();
 const _unloadFunctions: Set<UnloadFunction> = new Set();
@@ -17,6 +18,7 @@ const _renderFunctions: Set<RenderFunction> = new Set();
 const _renderImGuiFunctions: Set<RenderImGuiFunction> = new Set();
 const _worldReadyFunctions: Set<WorldReadyFunction> = new Set();
 const _updateFunctions: Set<UpdateFunction> = new Set();
+const _inputKeyFunctions: Set<InputKeyFunction> = new Set();
 
 type CommandArgument = {
     name: string;
@@ -114,6 +116,7 @@ export abstract class Game {
      * @param callback
      */
     public static on(event: 'update', callback: UpdateFunction): void;
+    public static on(event: 'input-key', callback: InputKeyFunction);
     public static on(event: string, callback: Function): void {
         switch (event) {
             case 'load':
@@ -134,6 +137,9 @@ export abstract class Game {
             case 'update':
                 _updateFunctions.add(callback as UpdateFunction);
                 break;
+            case 'input-key':
+                _inputKeyFunctions.add(callback as InputKeyFunction);
+                break;
         }
     }
 
@@ -146,6 +152,7 @@ export abstract class Game {
     ): void;
     public static off(event: 'world-ready', callback: WorldReadyFunction): void;
     public static off(event: 'update', callback: UpdateFunction): void;
+    public static off(event: 'input-key', callback: InputKeyFunction): void;
     public static off(event: string, callback: Function): void {
         switch (event) {
             case 'load':
@@ -165,6 +172,9 @@ export abstract class Game {
                 break;
             case 'update':
                 _updateFunctions.delete(callback as UpdateFunction);
+                break;
+            case 'input-key':
+                _inputKeyFunctions.delete(callback as InputKeyFunction);
                 break;
             default:
                 throw new Error(`Unknown event: ${event}`);
@@ -236,6 +246,12 @@ script.OnWorldReady = () => {
 script.OnUpdate = (time: number, delta: number) => {
     for (let updateFunction of _updateFunctions) {
         updateFunction?.(time, delta);
+    }
+};
+
+script.OnInputKey = (key: number, name: string, isDown: boolean) => {
+    for (let inputKeyFunction of _inputKeyFunctions) {
+        inputKeyFunction?.(key, name, isDown);
     }
 };
 
