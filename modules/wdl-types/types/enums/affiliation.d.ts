@@ -1,4 +1,4 @@
-declare enum AgentAffiliation {
+declare const enum AgentAffiliation {
     HeatDrone = 7,
     Emergency = 8,
     Authorities = 15,
@@ -7,7 +7,7 @@ declare enum AgentAffiliation {
     DedSec = 19,
 }
 
-declare enum AgentSubAffiliation {
+declare const enum AgentSubAffiliation {
     None = 0,
     PMC = 1,
     PrivateSecurity = 2,

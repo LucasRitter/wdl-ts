@@ -1,4 +1,4 @@
-declare enum AgentRelationship {
+declare const enum AgentRelationship {
     None = 0,
     NotThreat = 1,
     PotentialThreat = 2,
