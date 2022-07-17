@@ -1,107 +1,111 @@
 /** @noSelfInFile **/
 
-declare const enum ImGuiInputType {
-    Default = 0,
-    MouseForceShow = 1,
-    MousePreventGameInput = 2,
-    KeyboardPreventGameInput = 4,
-}
-
-type ImVec2 = [x: number, y: number];
-type ImVec2Ret = LuaMultiReturn<[x: number, y: number]>;
-
-type ImVec4 = [x: number, y: number, z: number, w: number];
-type ImVec4Ret = LuaMultiReturn<[x: number, y: number, z: number, w: number]>;
-
-declare const enum ImGuiCol {
-    Text,
-    TextDisabled,
-    WindowBg,
-    ChildBg,
-    PopupBg,
-    Border,
-    BorderShadow,
-    FrameBg,
-    FrameBgHovered,
-    FrameBgActive,
-    TitleBg,
-    TitleBgActive,
-    TitleBgCollapsed,
-    MenuBarBg,
-    ScrollbarBg,
-    ScrollbarGrab,
-    ScrollbarGrabHovered,
-    ScrollbarGrabActive,
-    CheckMark,
-    SliderGrab,
-    SliderGrabActive,
-    Button,
-    ButtonHovered,
-    ButtonActive,
-    Header,
-    HeaderHovered,
-    HeaderActive,
-    Separator,
-    SeparatorHovered,
-    SeparatorActive,
-    ResizeGrip,
-    ResizeGripHovered,
-    ResizeGripActive,
-    Tab,
-    TabHovered,
-    TabActive,
-    TabUnfocused,
-    TabUnfocusedActive,
-    PlotLines,
-    PlotLinesHovered,
-    PlotHistogram,
-    PlotHistogramHovered,
-    TableHeaderBg,
-    TableBorderStrong,
-    TableBorderLight,
-    TableRowBg,
-    TableRowBgAlt,
-    TextSelectedBg,
-    DragDropTarget,
-    NavHighlight,
-    NavWindowingHighlight,
-    NavWindowingDimBg,
-    ModalWindowDimBg,
-}
-
-declare const enum ImGuiStyleVar {
-    Alpha, // float
-    DisabledAlpha, // float
-    WindowPadding, // ImVec2
-    WindowRounding, // float
-    WindowBorderSize, // float
-    WindowMinSize, // ImVec2
-    WindowTitleAlign, // ImVec2
-    ChildRounding, // float
-    ChildBorderSize, // float
-    PopupRounding, // float
-    PopupBorderSize, // float
-    FramePadding, // ImVec2
-    FrameRounding, // float
-    FrameBorderSize, // float
-    ItemSpacing, // ImVec2
-    ItemInnerSpacing, // ImVec2
-    IndentSpacing, // float
-    CellPadding, // ImVec2
-    ScrollbarSize, // float
-    ScrollbarRounding, // float
-    GrabMinSize, // float
-    GrabRounding, // float
-    TabRounding, // float
-    ButtonTextAlign, // ImVec2
-    SelectableTextAlign, // ImVec2
-}
-
-// Fixme: This is a hack to make the type checker happy.
-type ImTextureID = number;
-
 // Fixme: This is heavily work in progress. Use at your own risk.
 declare namespace imgui {
+    const enum InputType {
+        Default = 0,
+        MouseForceShow = 1,
+        MousePreventGameInput = 2,
+        KeyboardPreventGameInput = 4,
+    }
+
+    type ImVec2 = [x: number, y: number];
+    type ImVec2Ret = LuaMultiReturn<[x: number, y: number]>;
+
+    type ImVec4 = [x: number, y: number, z: number, w: number];
+    type ImVec4Ret = LuaMultiReturn<
+        [x: number, y: number, z: number, w: number]
+    >;
+
+    const enum ImGuiSetCond {}
+
+    const enum Col {
+        Text,
+        TextDisabled,
+        WindowBg,
+        ChildBg,
+        PopupBg,
+        Border,
+        BorderShadow,
+        FrameBg,
+        FrameBgHovered,
+        FrameBgActive,
+        TitleBg,
+        TitleBgActive,
+        TitleBgCollapsed,
+        MenuBarBg,
+        ScrollbarBg,
+        ScrollbarGrab,
+        ScrollbarGrabHovered,
+        ScrollbarGrabActive,
+        CheckMark,
+        SliderGrab,
+        SliderGrabActive,
+        Button,
+        ButtonHovered,
+        ButtonActive,
+        Header,
+        HeaderHovered,
+        HeaderActive,
+        Separator,
+        SeparatorHovered,
+        SeparatorActive,
+        ResizeGrip,
+        ResizeGripHovered,
+        ResizeGripActive,
+        Tab,
+        TabHovered,
+        TabActive,
+        TabUnfocused,
+        TabUnfocusedActive,
+        PlotLines,
+        PlotLinesHovered,
+        PlotHistogram,
+        PlotHistogramHovered,
+        TableHeaderBg,
+        TableBorderStrong,
+        TableBorderLight,
+        TableRowBg,
+        TableRowBgAlt,
+        TextSelectedBg,
+        DragDropTarget,
+        NavHighlight,
+        NavWindowingHighlight,
+        NavWindowingDimBg,
+        ModalWindowDimBg,
+    }
+
+    const enum StyleVar {
+        Alpha, // float
+        DisabledAlpha, // float
+        WindowPadding, // ImVec2
+        WindowRounding, // float
+        WindowBorderSize, // float
+        WindowMinSize, // ImVec2
+        WindowTitleAlign, // ImVec2
+        ChildRounding, // float
+        ChildBorderSize, // float
+        PopupRounding, // float
+        PopupBorderSize, // float
+        FramePadding, // ImVec2
+        FrameRounding, // float
+        FrameBorderSize, // float
+        ItemSpacing, // ImVec2
+        ItemInnerSpacing, // ImVec2
+        IndentSpacing, // float
+        CellPadding, // ImVec2
+        ScrollbarSize, // float
+        ScrollbarRounding, // float
+        GrabMinSize, // float
+        GrabRounding, // float
+        TabRounding, // float
+        ButtonTextAlign, // ImVec2
+        SelectableTextAlign, // ImVec2
+    }
+
+    // Fixme: This is a hack to make the type checker happy.
+    type ImTextureID = number;
+
     /**
      *
      * @param title
@@ -177,7 +181,11 @@ declare namespace imgui {
 
     function GetWindowContentRegionWidth(): number;
 
-    function SetNextWindowContentSize(...size: ImVec2): number;
+    function SetNextWindowContentSize(
+        sizeX: number,
+        sizeY: number,
+        cond: ImGuiSetCond
+    ): number;
 
     function SetNextWindowFocus(): void;
 
@@ -205,10 +213,10 @@ declare namespace imgui {
 
     function PopFont(): void;
 
-    function PushStyleColor(index: ImGuiCol, color: number): void;
+    function PushStyleColor(index: Col, color: number): void;
 
     function PushStyleColor_2(
-        index: ImGuiCol,
+        index: Col,
         r: number,
         g: number,
         b: number,
@@ -263,7 +271,7 @@ declare namespace imgui {
 
     function Spacing(): void;
 
-    function Dummy(...size: ImVec2): void;
+    function Dummy(sizeX: number, sizeY: number): void;
 
     function Indent(indentWidth?: number): void;
 
@@ -279,7 +287,7 @@ declare namespace imgui {
 
     function GetCursorPosY(): number;
 
-    function SetCursorPos(pos: ImVec2): void;
+    function SetCursorPos(posX: number, posY: number): void;
 
     function SetCursorPosX(x: number): void;
 
@@ -289,7 +297,7 @@ declare namespace imgui {
 
     function GetCursorScreenPos(): ImVec2Ret;
 
-    function SetCursorScreenPos(...pos: ImVec2): void;
+    function SetCursorScreenPos(posX: number, posY: number): void;
 
     function AlignTextToFramePadding(): void;
 
@@ -313,11 +321,15 @@ declare namespace imgui {
 
     function GetID_2(idStart: string, idEnd: string): number;
 
-    function Button(label: string, ...size: ImVec2): boolean;
+    function Button(label: string, sizeX: number, sizeY: number): boolean;
 
     function SmallButton(label: string): boolean;
 
-    function InvisibleButton(strId: string, size: ImVec2): boolean;
+    function InvisibleButton(
+        strId: string,
+        sizeX: number,
+        sizeY: number
+    ): boolean;
 
     function Image(
         textureId: ImTextureID,

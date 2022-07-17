@@ -26,7 +26,7 @@ interface ScriptContext {
     /**
      * Called when ImGui is about to render.
      */
-    OnRenderImGui: () => ImGuiInputType;
+    OnRenderImGui: () => imgui.InputType;
 
     // endregion
 

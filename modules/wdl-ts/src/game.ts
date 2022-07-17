@@ -7,7 +7,7 @@ import CommandArgumentType = ScriptHook.CommandArgumentType;
 type LoadFunction = () => void;
 type UnloadFunction = () => void;
 type RenderFunction = () => void;
-type RenderImGuiFunction = () => ImGuiInputType;
+type RenderImGuiFunction = () => imgui.InputType;
 type WorldReadyFunction = () => void;
 type UpdateFunction = (time: number, delta: number) => void;
 
@@ -215,11 +215,11 @@ script.OnRender = () => {
 };
 
 script.OnRenderImGui = () => {
-    let input = ImGuiInputType.Default;
+    let input = imgui.InputType.Default;
 
     for (let renderImGuiFunction of _renderImGuiFunctions) {
         let resInput = renderImGuiFunction?.();
-        if (resInput !== ImGuiInputType.Default) {
+        if (resInput !== imgui.InputType.Default) {
             input = resInput;
         }
     }
