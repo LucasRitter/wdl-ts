@@ -9,3 +9,4 @@
 /// <reference path="entity-types.d.ts" />
 /// <reference path="entity-components.d.ts" />
 /// <reference path="visibility-category.d.ts" />
+/// <reference path="broadcast.d.ts" />
