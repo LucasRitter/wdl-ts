@@ -67,6 +67,9 @@ declare namespace ScriptHook {
         body: string
     ): void;
 
+    function IsHudElementVisible(): void;
+    function SetHudElementVisible(): void;
+
     // endregion
 
     // region Game Functions
@@ -217,8 +220,8 @@ declare namespace ScriptHook {
     // Todo
     function HasEntityUserLocalBBox(entity: EntityId): void;
 
-    // Todo: (doesn't seem to exist)
-    function RemoteEntity(entity: EntityId): void;
+    // Todo
+    function RemoveEntity(entity: EntityId): void;
 
     /**
      * Checks if an entity is loaded.
@@ -287,6 +290,13 @@ declare namespace ScriptHook {
         category: VisibilityCategory
     ): boolean;
 
+    /**
+     * Returns the category of an entity.
+     * Undocumented!
+     * @param entity
+     */
+    function GetEntityCategory(entity: EntityId): number;
+
     // endregion
 
     // region Vehicle
@@ -298,7 +308,223 @@ declare namespace ScriptHook {
      */
     function SetVehicleLicensePlateText(vehicle: EntityId, text: string): void;
 
-    // endregion
+    /**
+     * Repairs a given vehicle.
+     * @param vehicle The vehicle to repair.
+     */
+    function RepairVehicle(vehicle: EntityId): void;
 
     // endregion
+
+    // region Game
+
+    /**
+     * Enables or disables traffic.
+     * @param enabled Whether to enable or disable traffic.
+     * @constructor
+     */
+    function SetWorldSpawnerEnabled(enabled: boolean): void;
+
+    /**
+     * Checks if traffic is enabled.
+     */
+    function IsWorldSpawnerEnabled(): boolean;
+
+    /**
+     * Enables or disables (fake) distant traffic.
+     * @param enabled Whether to enable or disable distant traffic.
+     */
+    function SetWorldImpostorEnabled(enabled: boolean): void;
+
+    /**
+     * Checks if distant traffic is enabled.
+     */
+    function IsWorldImpostorEnabled(): boolean;
+
+    // endregion
+
+    // region Camera
+
+    /**
+     * Enables or disables free-camera.
+     * @param enabled Whether to enable or disable free-camera.
+     * @constructor
+     */
+    function SetLocalPlayerFreeCamera(enabled: boolean): void;
+
+    /**
+     * Checks whether free-camera is enabled.
+     */
+    function HasLocalPlayerFreeCamera(): boolean;
+
+    /**
+     * Sets the speed of the free-camera.
+     * @param normal The speed when in normal mode.
+     * @param shift The speed when `shift` is held down.
+     */
+    function SetFreeCameraSpeeds(normal: number, shift: number): void;
+
+    /**
+     * Gets the coordinates of where the camera is looking.
+     */
+    function GetCameraLookAt(): LuaMultiReturn<
+        [x: number, y: number, z: number]
+    >;
+
+    /**
+     * Gets the position of the camera.
+     */
+    function GetCameraPosition(): LuaMultiReturn<
+        [x: number, y: number, z: number]
+    >;
+
+    /**
+     * Gets the rotation of the camera.
+     */
+    function GetCameraRotation(): LuaMultiReturn<
+        [x: number, y: number, z: number]
+    >;
+
+    /**
+     * Sets the coordinates and rotation of the custom camera.
+     * @param xPos The x component of the position.
+     * @param yPos The y component of the position.
+     * @param zPos The z component of the position.
+     * @param xRot The x component of the rotation.
+     * @param yRot The y component of the rotation.
+     * @param zRot The z component of the rotation.
+     */
+    function SetCustomCamera(
+        xPos: number,
+        yPos: number,
+        zPos: number,
+        xRot: number,
+        yRot: number,
+        zRot: number
+    ): void;
+
+    /**
+     * Resets the custom camera and returns to gameplay camera.
+     */
+    function ResetCamera(): void;
+
+    // endregion
+
+    // region Felony
+
+    /**
+     * Enables or disables the felony system.
+     * @param enabled Whether to enable or disable the felony system.
+     */
+    function SetFelonySystemEnabled(enabled: boolean): void;
+
+    /**
+     * Checks if the felony system is enabled.
+     */
+    function IsFelonySystemEnabled(): boolean;
+
+    /**
+     * Starts a felony search.
+     */
+    function StartFelonySearch(entity: EntityId, felony: FelonyTypes): void;
+
+    function SetFelonyHeatLevel(level: number): void;
+    function ClearFelonyHeatLevel(): void;
+
+    // endregion
+
+    // region Environment
+
+    function GetTimeShiftTargetTime(): void;
+    function StartTimeShiftTransition(): void;
+    function SetVehicleMaterialOverride(): void;
+
+    function PlayBroadcast(type: BroadcastType, name: string): void;
+    function ResetBroadcastToDefault(): void;
+
+    // endregion
+
+    // region Map Editor
+
+    /**
+     * Loads a map file from its path.
+     */
+    function LoadMap(path: string): void;
+
+    /**
+     * Gets a map entity by its id.
+     * @param id The id of the entity.
+     */
+    function GetMapEntityById(id: number): EntityId;
+
+    /**
+     * Gets a map entity by its name.
+     * @param name The name of the entity.
+     */
+    function GetMapEntityByName(name: string): void;
+
+    /**
+     * Gets a list of map entities matching a given name.
+     * @param name The name of the entities.
+     */
+    function GetMapEntitiesByName(name: string): EntityId[];
+
+    /**
+     * Enables or disables the map editor.
+     * @param enabled Whether to enable or disable the map editor.
+     */
+    function SetMapEditorEnabled(enabled: boolean): void;
+
+    /**
+     * Checks if the map editor is enabled.
+     */
+    function IsMapEditorEnabled(): boolean;
+
+    /**
+     * Gets a list of paths for all available maps in the map editor.
+     */
+    function GetAvailableMaps(): string[];
+
+    /**
+     * Resets the Map.
+     */
+    function ResetMap(): void;
+
+    // endregion
+
+    // region London Eye
+
+    /**
+     * Gets the London Eye's rotation speed.
+     */
+    function GetLondonEyeRotationSpeed(): number;
+
+    /**
+     * Sets the London Eye's rotation speed.
+     * @param speed The rotation speed.
+     */
+    function SetLondonEyeRotationSpeed(speed: number): void;
+
+    // endregion
+
+    // region Character Editor
+
+    // endregion
+
+    function SetLocalPlayerIdentityField(): void;
+    function GetLocalPlayerIdentityField(): void;
+    function PrintPlayerPosition(): void;
+    function LoadSavedCharacterCreation(): void;
+    function SetLocalPlayerCharacterCreatorEnabled(): void;
+    function GetLocalPlayerPrismActorField(): void;
+    function IsLocalPlayerPlayingADialog(): void;
+    function PlayLocalPlayerDialogLine(): void;
+    function SetLocalPlayerCharacterCreation(): void;
+    function SetLocalPlayerPrismActorField(): void;
+    function IsLocalPlayerCharacterCreatorEnabled(): void;
+    function GetAllLocalPlayerPrismActorField(): void;
+    function GetSavedCharacterCreationsList(): void;
+    function StopLocalPlayerAllDialogs(): void;
+    function GetLocalPlayerDialogVoiceActor(): void;
+    function SetLocalPlayerDialogVoiceActor(): void;
 }
